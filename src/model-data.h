@@ -3,11 +3,11 @@
 
 namespace Rubin
 {
-	class OBJData
+	class ModelData
 	{
 	public:
-		OBJData();
-		~OBJData();
+		ModelData();
+		~ModelData();
 		void SetData(const VertexData* const vertices, size_t verticesLength, const unsigned int* const indices, size_t indicesLength);
 		void GetVerticesCopy(VertexData*& out_vertices, size_t& out_verticesLength) const;
 		void GetIndicesCopy(unsigned int*& out_indices, size_t& out_indicesLength) const;
