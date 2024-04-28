@@ -1,4 +1,4 @@
-#include "obj-data.h"
+#include "model-data.h"
 #include <algorithm>
 
 using Rubin::VertexData;
