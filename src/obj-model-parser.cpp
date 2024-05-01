@@ -17,10 +17,14 @@ void FindFloatsInLine(const std::string& line, float* destination, size_t destin
 	{
 		const char& character = line[i];
 		const bool& isLastLineCharacter = i == line.length() - 1;
+		const bool& isValidCharacter = NumericCharactersParser::IsValidNumericCharacter(character);
 
-		numericCharactersParser.CheckAndAppendCharacter(character);
+		if (isValidCharacter)
+		{
+			numericCharactersParser.AppendCharacter(character);
+		}
 
-		if ((not numericCharactersParser.IsEmpty() or isLastLineCharacter) and not numericCharactersParser.IsEmpty())
+		if ((not isValidCharacter or isLastLineCharacter) and not numericCharactersParser.IsEmpty())
 		{
 			destination[destinationIndex] = numericCharactersParser.ParseFloat();
 			destinationIndex++;
