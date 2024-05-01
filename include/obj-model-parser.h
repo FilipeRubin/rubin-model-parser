@@ -7,7 +7,5 @@ namespace Rubin
 	{
 	public:
 		ModelData ParseModel(const std::string source) override;
-	private:
-
 	};
 }
