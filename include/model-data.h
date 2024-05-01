@@ -1,20 +1,18 @@
 #pragma once
 #include "vertex-data.h"
+#include <memory>
+#include <vector>
 
 namespace Rubin
 {
 	class ModelData
 	{
 	public:
-		ModelData();
-		~ModelData();
-		void SetData(const VertexData* const vertices, size_t verticesLength, const unsigned int* const indices, size_t indicesLength);
-		void GetVerticesCopy(VertexData*& out_vertices, size_t& out_verticesLength) const;
-		void GetIndicesCopy(unsigned int*& out_indices, size_t& out_indicesLength) const;
+		void SetData(std::unique_ptr<std::vector<VertexData>>&& vertices, std::unique_ptr<std::vector<unsigned int>>&& indices);
+		const std::vector<VertexData>& GetVerticesData() const;
+		const std::vector<unsigned int>& GetIndices() const;
 	private:
-		VertexData* m_vertices;
-		size_t m_verticesLength;
-		unsigned int* m_indices;
-		size_t m_indicesLength;
+		std::unique_ptr<std::vector<VertexData>> m_vertices;
+		std::unique_ptr<std::vector<unsigned int>> m_indices;
 	};
 }
