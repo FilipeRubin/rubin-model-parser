@@ -7,9 +7,9 @@ Rubin::NumericCharactersParser::NumericCharactersParser() :
 {
 }
 
-void Rubin::NumericCharactersParser::CheckAndAppendCharacter(char character)
+void Rubin::NumericCharactersParser::AppendCharacter(char character)
 {
-	if (IsValidNumericCharacter(character) and m_index < FLOAT_BUFFER_SIZE)
+	if (m_index < FLOAT_BUFFER_SIZE)
 	{
 		m_buffer[m_index] = character;
 		m_index++;
