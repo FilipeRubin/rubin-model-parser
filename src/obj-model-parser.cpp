@@ -1,35 +1,29 @@
 #include "obj-model-parser.h"
+#include "numeric-characters-parser.h"
 #include <array>
-#include <vector>
 #include <sstream>
+#include <vector>
 
 using Rubin::ModelData;
+using Rubin::NumericCharactersParser;
 
 void FindFloatsInLine(const std::string& line, float* destination, size_t destinationLength)
 {
-	char floatBuffer[10] = { '\0' };
-	unsigned int floatBufferIndex = 0U;
+	NumericCharactersParser numericCharactersParser;
 
 	unsigned int destinationIndex = 0U;
 
 	for (int i = 0; i < line.length(); i++)
 	{
 		const char& character = line[i];
-		const bool& isFloatBufferEmpty = floatBuffer[0] == '\0';
-		const bool& isLastCharacter = i == line.length() - 1;
-		const bool& isValidNumericCharacter = (character > 47 and character < 58) or character == '-' or character == '.';
+		const bool& isLastLineCharacter = i == line.length() - 1;
 
-		if (isValidNumericCharacter)
+		numericCharactersParser.CheckAndAppendCharacter(character);
+
+		if ((not numericCharactersParser.IsEmpty() or isLastLineCharacter) and not numericCharactersParser.IsEmpty())
 		{
-			floatBuffer[floatBufferIndex] = character;
-			floatBufferIndex++;
-		}
-		if ((not isValidNumericCharacter or isLastCharacter) and not isFloatBufferEmpty)
-		{
-			destination[destinationIndex] = std::stof(std::string(floatBuffer));
+			destination[destinationIndex] = numericCharactersParser.ParseFloat();
 			destinationIndex++;
-			floatBufferIndex = 0U;
-			std::memset(floatBuffer, 0, sizeof(floatBuffer));
 
 			if (destinationIndex >= destinationLength)
 			{
