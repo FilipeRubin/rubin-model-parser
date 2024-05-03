@@ -44,5 +44,5 @@ void Rubin::NumericCharactersParser::ResetBuffer()
 
 inline bool Rubin::NumericCharactersParser::IsValidNumericCharacter(char character)
 {
-	return (character > 47 and character < 58) or character == '-' or character == '.';
+	return (std::isdigit(character)) or character == '-' or character == '.';
 }
