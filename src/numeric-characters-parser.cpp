@@ -26,6 +26,11 @@ float Rubin::NumericCharactersParser::ParseFloat() const
 	return std::stof(m_buffer);
 }
 
+unsigned int Rubin::NumericCharactersParser::ParseUnsignedInt() const
+{
+	return std::stoul(m_buffer);
+}
+
 bool Rubin::NumericCharactersParser::IsEmpty() const
 {
 	return m_index == 0U;

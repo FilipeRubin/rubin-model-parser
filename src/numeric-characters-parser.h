@@ -11,6 +11,7 @@ namespace Rubin
 		const char(&GetBuffer() const)[FLOAT_BUFFER_SIZE];
 		bool IsEmpty() const;
 		float ParseFloat() const;
+		unsigned int ParseUnsignedInt() const;
 		void ResetBuffer();
 		static inline bool IsValidNumericCharacter(char character);
 	private:
