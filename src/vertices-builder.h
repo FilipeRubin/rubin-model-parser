@@ -1,6 +1,6 @@
 #pragma once
 #include "vertex-data.h"
-#include "vertex-components-indices.h"
+#include "obj-face-elements.h"
 #include <array>
 #include <memory>
 #include <string>
@@ -22,6 +22,6 @@ namespace Rubin
 		std::vector<std::array<float, 3>> m_normals;
 		std::unique_ptr<std::vector<VertexData>> m_builtVertices;
 		void FindFloatsInLine(const std::string& line, float* destination, size_t destinationLength) const;
-		VertexComponentsIndices FindVertexComponentsIndicesInTrimmedLine(const char* lineStart, const char* lineEnd) const;
+		OBJFaceElements FindVertexComponentsIndicesInTrimmedLine(const char* lineStart, const char* lineEnd) const;
 	};
 }

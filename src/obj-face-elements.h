@@ -2,7 +2,7 @@
 
 namespace Rubin
 {
-	struct VertexComponentsIndices
+	struct OBJFaceElements
 	{
 		unsigned int positionsIndex;
 		unsigned int textureCoordinatesIndex;

@@ -1,7 +1,7 @@
 #include "vertices-builder.h"
 #include "numeric-characters-parser.h"
 
-using Rubin::VertexComponentsIndices;
+using Rubin::OBJFaceElements;
 
 Rubin::VerticesBuilder::VerticesBuilder() :
 	m_builtVertices(std::make_unique<std::vector<VertexData>>())
@@ -62,9 +62,9 @@ void Rubin::VerticesBuilder::FindFloatsInLine(const std::string& line, float* de
 	}
 }
 
-VertexComponentsIndices Rubin::VerticesBuilder::FindVertexComponentsIndicesInTrimmedLine(const char* lineStart, const char* lineEnd) const
+OBJFaceElements Rubin::VerticesBuilder::FindVertexComponentsIndicesInTrimmedLine(const char* lineStart, const char* lineEnd) const
 {
-	VertexComponentsIndices result;
+	OBJFaceElements result;
 	NumericCharactersParser numericCharactersParser;
 	
 	const char* currentCharacter = lineStart;
