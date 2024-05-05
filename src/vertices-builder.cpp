@@ -1,6 +1,8 @@
 #include "vertices-builder.h"
 #include "numeric-characters-parser.h"
 
+using Rubin::VertexComponentsIndices;
+
 Rubin::VerticesBuilder::VerticesBuilder() :
 	m_builtVertices(std::make_unique<std::vector<VertexData>>())
 {
@@ -28,7 +30,7 @@ void Rubin::VerticesBuilder::FindVerticesInLine(const std::string& line)
 {
 }
 
-void Rubin::VerticesBuilder::FindFloatsInLine(const std::string& line, float* destination, size_t destinationLength)
+void Rubin::VerticesBuilder::FindFloatsInLine(const std::string& line, float* destination, size_t destinationLength) const
 {
 	NumericCharactersParser numericCharactersParser;
 
@@ -58,4 +60,41 @@ void Rubin::VerticesBuilder::FindFloatsInLine(const std::string& line, float* de
 			}
 		}
 	}
+}
+
+VertexComponentsIndices Rubin::VerticesBuilder::FindVertexComponentsIndicesInTrimmedLine(const char* lineStart, const char* lineEnd) const
+{
+	VertexComponentsIndices result;
+	NumericCharactersParser numericCharactersParser;
+	
+	const char* currentCharacter = lineStart;
+	unsigned int* target = reinterpret_cast<unsigned int*>(&result);
+
+	while (currentCharacter != lineEnd)
+	{
+		const char* nextCharacter = currentCharacter + 1;
+
+		if (std::isdigit(*currentCharacter))
+		{
+			numericCharactersParser.AppendCharacter(*currentCharacter);
+		}
+
+		if (*nextCharacter == '/' or nextCharacter == lineEnd)
+		{
+			if (numericCharactersParser.IsEmpty())
+			{
+				*target = 0U;
+			}
+			else
+			{
+				*target = numericCharactersParser.ParseUnsignedInt() - 1U;
+			}
+
+			target++;
+		}
+
+		currentCharacter++;
+	}
+
+	return result;
 }
